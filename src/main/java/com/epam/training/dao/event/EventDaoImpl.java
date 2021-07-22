@@ -5,7 +5,6 @@ import com.epam.training.storage.event.EventStorage;
 import com.epam.training.storage.event.EventStorageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -43,5 +42,6 @@ public class EventDaoImpl implements EventDao {
     public List<Event> findAll() {
         return eventStorage.findAllEvents();
     }
+
 
 }
