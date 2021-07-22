@@ -7,23 +7,19 @@ import com.epam.training.service.event.EventService;
 import com.epam.training.service.ticket.TicketService;
 import com.epam.training.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.Date;
 import java.util.List;
 
-@Component
+@Controller
 @RequiredArgsConstructor
 public class BookingFacadeImpl implements BookingFacade {
 
-    @Autowired
     private final UserService userService;
 
-    @Autowired
     private final EventService eventService;
 
-    @Autowired
     private final TicketService ticketService;
 
 
