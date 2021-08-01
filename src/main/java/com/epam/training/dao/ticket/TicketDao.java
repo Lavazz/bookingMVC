@@ -1,17 +1,15 @@
 package com.epam.training.dao.ticket;
 
-import com.epam.training.model.ticket.Ticket;
+import com.epam.training.exceptions.InvalidTicketException;
+import com.epam.training.model.Ticket;
 
 import java.util.List;
 
 public interface TicketDao {
 
-    Ticket bookTicket(Ticket ticket);
+  Ticket addTicket(Ticket ticket);
 
-    boolean cancelTicket(long ticketId);
+  List<Ticket> getAllTickets();
 
-    List<Ticket> findAll();
-
-    Ticket getTicketById(long ticketId);
-
+  void deleteTicketById(Long id) throws InvalidTicketException;
 }

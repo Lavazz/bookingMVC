@@ -1,19 +1,19 @@
 package com.epam.training.dao.user;
 
-import com.epam.training.model.user.User;
+import com.epam.training.exceptions.InvalidUserException;
+import com.epam.training.model.User;
 
 import java.util.List;
 
 public interface UserDao {
 
-    User getUserById(long userId);
+  User createUser(User user) throws InvalidUserException;
 
-    User createUser(User user);
+  User getUserById(Long id) throws InvalidUserException;
 
-    User updateUser(User user);
+  List<User> getAllUsers();
 
-    boolean deleteUser(long userId);
+  void updateUser(User user) throws InvalidUserException;
 
-    List<User> findAll();
-
+  void deleteUserById(Long id) throws InvalidUserException;
 }

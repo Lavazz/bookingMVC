@@ -1,19 +1,19 @@
 package com.epam.training.dao.event;
 
-import com.epam.training.model.event.Event;
+import com.epam.training.exceptions.InvalidEventException;
+import com.epam.training.model.Event;
 
 import java.util.List;
 
 public interface EventDao {
 
-    Event getEventById(long eventId);
+  Event createEvent(Event event);
 
-    Event createEvent(Event event);
+  Event getEventById(Long id) throws InvalidEventException;
 
-    Event updateEvent(Event event);
+  List<Event> getAllEvents();
 
-    boolean deleteEvent(long eventId);
+  void updateEvent(Event event) throws InvalidEventException;
 
-    List<Event> findAll();
-
+  void deleteEventById(Long id);
 }
