@@ -1,9 +1,8 @@
 package com.epam.training.dao.user;
 
-import com.epam.training.exceptions.InvalidUserException;
-import com.epam.training.model.User;
-import com.epam.training.dao.user.UserDao;
-import com.epam.training.storage.CommonStorage;
+import com.epam.training.model.user.User;
+import com.epam.training.storage.user.UserStorage;
+import com.epam.training.storage.user.UserStorageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,35 +11,36 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-  private final CommonStorage commonStorage;
+    private final UserStorage userStorage;
 
-  @Autowired
-  public UserDaoImpl(CommonStorage commonStorage) {
-    this.commonStorage = commonStorage;
-  }
+    @Autowired
+    public UserDaoImpl(UserStorageImpl userStorage) {
+        this.userStorage = userStorage;
+    }
 
-  @Override
-  public User createUser(User user) throws InvalidUserException {
-    return commonStorage.addUser(user);
-  }
+    @Override
+    public User getUserById(long userId) {
+        return userStorage.getUserById(userId);
+    }
 
-  @Override
-  public User getUserById(Long id) throws InvalidUserException {
-    return commonStorage.getUserById(id);
-  }
+    @Override
+    public User createUser(User user) {
+        return userStorage.createUser(user);
+    }
 
-  @Override
-  public List<User> getAllUsers() {
-    return commonStorage.getAllUsers();
-  }
+    @Override
+    public User updateUser(User user) {
+        return userStorage.updateUser(user);
+    }
 
-  @Override
-  public void updateUser(User user) throws InvalidUserException {
-    commonStorage.update(user);
-  }
+    @Override
+    public boolean deleteUser(long userId) {
+        return userStorage.deleteUser(userId);
+    }
 
-  @Override
-  public void deleteUserById(Long id) throws InvalidUserException {
-    commonStorage.removeUserById(id);
-  }
+    @Override
+    public List<User> findAll() {
+        return userStorage.findAll();
+    }
+
 }

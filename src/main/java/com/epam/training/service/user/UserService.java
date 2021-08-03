@@ -1,12 +1,16 @@
-package com.epam.training.dao.user;
+package com.epam.training.service.user;
 
 import com.epam.training.model.user.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserService {
 
     User getUserById(long userId);
+
+    User getUserByEmail(String email);
+
+    List<User> getUsersByName(String name, int pageSize, int pageNum);
 
     User createUser(User user);
 

@@ -1,145 +1,120 @@
 package com.epam.training.facade;
 
-import com.epam.training.exceptions.InvalidEventException;
-import com.epam.training.exceptions.InvalidTicketException;
-import com.epam.training.exceptions.InvalidUserException;
-import com.epam.training.model.Event;
-import com.epam.training.model.Ticket;
-import com.epam.training.model.Ticket.Category;
-import com.epam.training.model.User;
-import com.epam.training.dao.event.EventDao;
-import com.epam.training.dao.ticket.TicketDao;
-import com.epam.training.dao.user.UserDao;
-import com.epam.training.services.event.EventService;
-import com.epam.training.services.ticket.TicketService;
-import com.epam.training.services.user.UserService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.epam.training.model.event.Event;
+import com.epam.training.model.ticket.Ticket;
+import com.epam.training.model.user.User;
+import com.epam.training.service.event.EventService;
+import com.epam.training.service.ticket.TicketService;
+import com.epam.training.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
-@Slf4j
+@RequiredArgsConstructor
 public class BookingFacadeImpl implements BookingFacade {
 
-  private UserDao userDao;
-  private EventDao eventDao;
-  private TicketDao ticketDao;
-  private UserService userService;
-  private EventService eventService;
-  private TicketService ticketService;
+    private final UserService userService;
 
-  public BookingFacadeImpl() {
-  }
+    private final EventService eventService;
 
-  @Autowired
-  public BookingFacadeImpl(
-      UserDao userDao,
-      EventDao eventDao,
-      TicketDao ticketDao,
-      UserService userService,
-      EventService eventService,
-      TicketService ticketService) {
-    this.userDao = userDao;
-    this.eventDao = eventDao;
-    this.ticketDao = ticketDao;
-    this.userService = userService;
-    this.eventService = eventService;
-    this.ticketService = ticketService;
-  }
+    private final TicketService ticketService;
 
-  // Users
 
-  @Override
-  public User createUser(User user) throws InvalidUserException {
-    String msg = String.format("Create user: %s", user.getName());
-    log.debug(msg);
-    return userDao.createUser(user);
-  }
+    @Override
+    public Event getEventById(long eventId) {
+        return eventService.getEventById(eventId);
+    }
 
-  @Override
-  public User getUserById(Long userId) throws InvalidUserException {
-    return userDao.getUserById(userId);
-  }
+    @Override
+    public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
+        return eventService.getEventsByTitle(title, pageSize, pageNum);
+    }
 
-  @Override
-  public User getUserByEmail(String email) throws InvalidUserException {
-    return userService.getUserByEmail(email);
-  }
+    @Override
+    public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
+        return eventService.getEventsForDay(day, pageSize, pageNum);
+    }
 
-  @Override
-  public List<User> getUsersByName(String name, int pageSize, int pageNum) {
-    return userService.getUsersByName(name, pageSize, pageNum);
-  }
+    @Override
+    public Event createEvent(Event event) {
+        return eventService.createEvent(event);
+    }
 
-  @Override
-  public void updateUser(User user) throws InvalidUserException {
-    userDao.updateUser(user);
-  }
+    @Override
+    public Event updateEvent(Event event) {
+        return eventService.updateEvent(event);
+    }
 
-  @Override
-  public void deleteUserById(Long userId) throws InvalidUserException {
-    userDao.deleteUserById(userId);
-  }
+    @Override
+    public boolean deleteEvent(long eventId) {
+        return eventService.deleteEvent(eventId);
+    }
 
-  // Events
+    @Override
+    public User getUserById(long userId) {
+        return userService.getUserById(userId);
+    }
 
-  @Override
-  public Event getEventById(Long eventId) throws InvalidEventException {
-    return eventDao.getEventById(eventId);
-  }
+    @Override
+    public User getUserByEmail(String email) {
+        return userService.getUserByEmail(email);
+    }
 
-  @Override
-  public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
-    return eventService.getEventsByTitle(title, pageSize, pageNum);
-  }
+    @Override
+    public List<User> getUsersByName(String name, int pageSize, int pageNum) {
+        return userService.getUsersByName(name, pageSize, pageNum);
+    }
 
-  @Override
-  public List<Event> getEventsForDay(LocalDateTime day, int pageSize, int pageNum) {
-    return eventService.getEventsForDay(day, pageSize, pageNum);
-  }
+    @Override
+    public User createUser(User user) {
+        return userService.createUser(user);
+    }
 
-  @Override
-  public Event createEvent(Event event) {
-    return eventDao.createEvent(event);
-  }
+    @Override
+    public User updateUser(User user) {
+        return updateUser(user);
+    }
 
-  @Override
-  public void updateEvent(Event event) throws InvalidEventException {
-    eventDao.updateEvent(event);
-  }
+    @Override
+    public boolean deleteUser(long userId) {
+        return userService.deleteUser(userId);
+    }
 
-  @Override
-  public void deleteEventById(Long eventId) {
-    eventDao.deleteEventById(eventId);
-  }
+    @Override
+    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
+        return ticketService.bookTicket(userId, eventId, place, category);
+    }
 
-  @Override
-  public List<Event> getAllEvents() {
-    return eventService.getAllEvents();
-  }
+    @Override
+    public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
+        return ticketService.getBookedTickets(user, pageSize, pageNum);
+    }
 
-  // Tickets
+    @Override
+    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
+        return ticketService.getBookedTickets(event, pageSize, pageNum);
+    }
 
-  @Override
-  public Ticket bookTicket(Long userId, Long eventId, int place, Category category) {
-    return ticketService.bookTicket(userId, eventId, place, category);
-  }
+    @Override
+    public boolean cancelTicket(long ticketId) {
+        return ticketService.cancelTicket(ticketId);
+    }
 
-  @Override
-  public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
-    return ticketService.getBookedTickets(user, pageSize, pageNum);
-  }
+    @Override
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
 
-  @Override
-  public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
-    return ticketService.getBookedTickets(event, pageSize, pageNum);
-  }
+    @Override
+    public List<Ticket> getAllTickets() {
+        return ticketService.findAll();
+    }
 
-  @Override
-  public void cancelTicket(Long ticketId) throws InvalidTicketException {
-    ticketDao.deleteTicketById(ticketId);
-  }
+    @Override
+    public List<Event> getAllEvents() {
+        return eventService.findAll();
+    }
 }

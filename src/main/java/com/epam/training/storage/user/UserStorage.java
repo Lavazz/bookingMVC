@@ -1,10 +1,11 @@
-package com.epam.training.dao.user;
+package com.epam.training.storage.user;
 
 import com.epam.training.model.user.User;
 
 import java.util.List;
+import java.util.Map;
 
-public interface UserDao {
+public interface UserStorage {
 
     User getUserById(long userId);
 
@@ -16,4 +17,7 @@ public interface UserDao {
 
     List<User> findAll();
 
+    void cleanStorage();
+
+    Map<Long, User> getUsers();
 }

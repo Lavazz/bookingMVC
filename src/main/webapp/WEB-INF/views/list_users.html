@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta content="text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>User</title>
+
+</head>
+<body>
+
+<p><a href="/bookingApp/index.jsp">
+    <button type="submit">Back</button>
+</a></p>
+
+<header>
+    <p></p>
+    <div>
+        <button><a href="users/new">Add User</a></button>
+    </div>
+    <p></p>
+
+</header>
+
+<section>
+    <div>
+        <table border="1">
+            <thead>
+            <tr>
+                <th >Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="user : ${allUsers}">
+                <td th:text="${user.getId()}">1</td>
+                <td th:text="${user.getName()}">Stacy</td>
+                <td th:text="${user.getEmail()}">stasy@gmail.com</td>
+                <td>
+                    <a th:href="@{/update/{id}(id=${user.getId})}">Update</a>
+                    <a th:href="@{/delete/{id}(id=${user.getId})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+
+
+</body>
+</html>

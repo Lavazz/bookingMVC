@@ -1,10 +1,11 @@
-package com.epam.training.dao.event;
+package com.epam.training.storage.event;
 
 import com.epam.training.model.event.Event;
 
 import java.util.List;
+import java.util.Map;
 
-public interface EventDao {
+public interface EventStorage {
 
     Event getEventById(long eventId);
 
@@ -14,6 +15,7 @@ public interface EventDao {
 
     boolean deleteEvent(long eventId);
 
-    List<Event> findAll();
+    List<Event> findAllEvents();
 
+    Map<Long, Event> getEvents();
 }

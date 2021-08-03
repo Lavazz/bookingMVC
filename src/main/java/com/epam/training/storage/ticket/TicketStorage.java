@@ -1,10 +1,11 @@
-package com.epam.training.dao.ticket;
+package com.epam.training.storage.ticket;
 
 import com.epam.training.model.ticket.Ticket;
 
 import java.util.List;
+import java.util.Map;
 
-public interface TicketDao {
+public interface TicketStorage {
 
     Ticket bookTicket(Ticket ticket);
 
@@ -14,4 +15,5 @@ public interface TicketDao {
 
     Ticket getTicketById(long ticketId);
 
+    Map<Long, Ticket> getTickets();
 }

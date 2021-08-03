@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <p><a href="/bookingApp/index.jsp">
+        <button type="submit">Back</button>
+    </a></p>
+</head>
+<body>
+
+
+    <div>
+        <span th:text="${method}">User create</span>
+    </div>
+
+
+<section>
+    <form th:action="@{/create}" th:method="get">
+        <div >
+            <input type="text" name="name" class="form-control" placeholder="Name">
+            <input type="text" name="email" class="form-control" placeholder="Email">
+            <a href="users/create">
+                <button type="submit">Save</button>
+            </a>
+        </div>
+    </form>
+</section>
+
+
+</body>
+</html>

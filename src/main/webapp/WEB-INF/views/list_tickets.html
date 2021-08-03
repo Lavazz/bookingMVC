@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <big style="font-size: 200%;"><b><td th:text=${heading}></td></b></big>
+    <style>
+
+table {
+    border-collapse: collapse;
+  }
+
+th {
+  font-size: 13px;
+  font-weight: normal;
+  background: #b9c9fe;
+  color: #039;
+  padding: 8px;
+  border: 1px solid grey;
+}
+td {
+  background: #e8edff;
+  color: #669;
+  padding: 8px;
+  border: 1px solid grey;
+}
+
+  </style>
+</head>
+<body>
+
+<p><a href="/bookingApp/index.jsp">
+    <button type="submit">Back</button>
+</a></p>
+
+
+<p><p href="/newTicket"></p>
+    <button type="submit">Create new ticket</button>
+<p></a></p>
+
+<section>
+    <div>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>eventId</th>
+                <th>userId</th>
+                <th>category</th>
+                <th>place</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="ticket : ${allTickets}">
+                <td th:text="${ticket.getEventId()}"></td>
+                <td th:text="${ticket.getUserId()}"></td>
+                <td th:text="${ticket.getCategory()}"></td>
+                <td th:text="${ticket.getPlace()}"></td>
+                <td>
+                    <a th:href="@{/deleteTicket/{id}(id=${ticket.getEventId})}">Cancel</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+</body>
+
+</body>
+</html>
